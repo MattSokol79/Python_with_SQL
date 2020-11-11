@@ -9,5 +9,6 @@
 - Some functions that we can use to interact with SQL
 data
 
+- Make sure your latest odbc driver is installed
 - Set up a pyodbc connection
 - Command to install pyodbc `pip install pyodbc`
