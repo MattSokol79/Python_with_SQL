@@ -1,17 +1,12 @@
-import pyodbc
+def longest_time(h, m, s):
+    hours_to_mins = h * 60
+    s_to_min = s / 60
 
-server = "databases1.spartaglobal.academy"
-database = "Northwind"
-username = "SA"
-password = "Passw0rd2018"
-connection = pyodbc.connect(
-    f"DRIVER=ODBC Driver 17 for SQL Server;SERVER={server};DATABASE={database};UID={username};PWD={password}"
-)
-cursor = connection.cursor()
+    if hours_to_mins > m and s_to_min:
+        return h
+    elif m > hours_to_mins and s_to_min:
+        return m
+    elif s_to_min > hours_to_mins and m:
+        return s
 
-query = "SELECT CustomerID FROM Customers WHERE City = ?"
-with cursor.execute(query, "London"):
-    row = cursor.fetchone()
-    while row:
-        print(f"{str(row[0])}")
-        row = cursor.fetchone()
+print(longest_time(2, 300, 15000))
