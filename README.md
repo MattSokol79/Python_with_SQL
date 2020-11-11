@@ -2,7 +2,7 @@
 
 ![](python_sql.png)
 
-**Using PYODBC (open database connectivity)**
+**Using PYODBC (python open database connectivity)**
 - PYODBC is used to connect to SQL from the Python program
 
 **What is a Cursor and how to use it?**
@@ -10,3 +10,4 @@
 data
 
 - Set up a pyodbc connection
+- Command to install pyodbc `pip install pyodbc`
