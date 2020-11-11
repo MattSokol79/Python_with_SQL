@@ -4,8 +4,8 @@ class Pyodbc_Connection:
     def __init__(self):
         self.server = "databases1.spartaglobal.academy"
         self.database = "Northwind"
-        self.username = "**"
-        self.password = "***"
+        self.username = "SA"
+        self.password = "Passw0rd2018"
 
 
     def connect(self):

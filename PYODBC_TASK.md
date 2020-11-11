@@ -101,3 +101,82 @@ provided in the table
             print(records)
 ```
 
+## Iteration 2 Task
+**An sql manager for the products table**
+- Create an object that relates only to the products table in 
+the Northwind database. The reason for creating a single object 
+for any table within the database would be to ensure that all 
+functionality we build into this relates to what could be defined 
+as a 'business function'.
+
+- As an example the products table, although relating to the rest of 
+the company, will service a particular area of the business in this 
+scenario we will simply call them the 'stock' department.
+
+- The stock department may have numerous requirements and it makes sense 
+to contain all the requirements a code actions within a single object.
+
+- Create two files nw_products.py & nw_runner.py and then we will move 
+into creating our object.
+
+**Our first requirement...**
+- We've had a requirement for the stock department to print out the average 
+value of all of our stock items.
+
+Away we go....
+
+**!!!Important Note!!! It would be more efficient to write the SQL query 
+to find the data and compute the value and simply return the value in Python.**
+
+### Solution
+- The task focuses on writing a method which output the average price of the
+units within the Products table
+- First we make the class and connect to the database..
+```python
+import pyodbc
+
+class SQL_Manager:
+    def __init__(self):
+        self.server = "databases1.spartaglobal.academy"
+        self.database = "Northwind"
+        self.username = "SA"
+        self.password = "Passw0rd2018"
+
+    # Connect method so we can connect to the database
+    def connect(self):
+        self.northwind_connection = pyodbc.connect(
+                'DRIVER={ODBC Driver 17 for SQL Server};SERVER=' + self.server + ';DATABASE=' + self.database + ';UID=' + self.username + ';PWD=' + self.password)
+
+        # Cursor is location of your mouse/current path
+        self.cursor = self.northwind_connection.cursor()
+```
+- Once connection is set we can write the method to calculate the average
+price of the products:
+```python
+    def unitprice_average(self):
+        self.connect()
+        # Empty list which we can add rows of data at each iteration
+        average = []
+        # Query to select the desired column to be iterated over i.e. unit price
+        sql_query = "SELECT UnitPrice FROM Products;"
+        # Runs the query and returns one row every time
+        with self.cursor.execute(sql_query):
+            one_row = self.cursor.fetchone()
+            while one_row:
+                # Once data from a row is appended into the average list, it goes to the next row
+                average.append(int(one_row[0]))
+                one_row = self.cursor.fetchone()
+        # Returns the average by summing all the values and dividing by the amount
+        return sum(average) / len(average)
+```
+- To run/test the method, we can call an instance and method in `def main()`
+```python
+
+def main():
+    # Creating an instance of class to test functionality
+    test = SQL_Manager()
+    print(test.unitprice_average())
+
+if __name__ == '__main__':
+    main()
+```
