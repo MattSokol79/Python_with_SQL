@@ -6,7 +6,7 @@
 - Now that you've learned how to connect to the DB using pyodbc you can start abstracting out interaction the db! This is great if you don't like writing sql.
 
 **Tasks**
-- CRUD the DB
+- CRUD the DB in python
 
 Hint: create abstraction and methods to deal with db so you don't have too
 
