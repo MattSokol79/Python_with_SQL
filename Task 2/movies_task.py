@@ -9,8 +9,8 @@ data_frame = pd.DataFrame(movies_csv, columns=['titleType', 'primaryTitle', 'ori
 # Connecting to SQL DB
 server = "databases1.spartaglobal.academy"
 database = "Northwind"
-username = "**"
-password = "***"
+username = "*****"
+password = "*****"
 
 connect = pyodbc.connect(
             'DRIVER={ODBC Driver 17 for SQL Server};SERVER=' + server + ';DATABASE=' + database + ';UID=' + username + ';PWD=' + password)
