@@ -33,7 +33,7 @@ class Movies:
         exported_movie_data = pd.read_sql_query(f'{sql_query}', self.connect) # connect is the connection to the database
         # We assign a dataframe to our table obtained from the SQL DB and export to csv
         data_frame_2 = pd.DataFrame(exported_movie_data)
-        data_frame_2.to_csv(fr'C:\Users\poiro\PycharmProjects\Python_with_SQL\Task_2\{name_of_file}.csv')
+        data_frame_2.to_csv(fr'C:\Users\poiro\PycharmProjects\Python_with_SQL\Task 2\{name_of_file}.csv')
         print(data_frame_2)
 
     def create_table_sql(self):
