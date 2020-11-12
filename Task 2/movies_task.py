@@ -23,7 +23,7 @@ cursor = connect.cursor()
 
 # Create a table for the movie data in SQL DB
 cursor.execute("CREATE TABLE matt_movies_table (titleType VARCHAR(255), primaryTitle VARCHAR(255), "
-               "originalTitle VARCHAR(255), isAdult INT, startYear INT, endYear VARCHAR(255), runtimeMinutes VARCHAR(255), genres VARCHAR(255")
+               "originalTitle VARCHAR(255), isAdult INT, startYear INT, endYear VARCHAR(255), runtimeMinutes VARCHAR(255), genres VARCHAR(255)")
 
 # Inserts all the relevant values row by row into the newly created table in SQL DB
 for row in data_frame.itertuples():

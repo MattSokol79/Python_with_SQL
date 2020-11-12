@@ -77,7 +77,7 @@ begin creating our table in SQL:
 ```python
 # Create a table for the movie data in SQL DB
 cursor.execute("CREATE TABLE matt_movies_table (titleType VARCHAR(255), primaryTitle VARCHAR(255), "
-               "originalTitle VARCHAR(255), isAdult INT, startYear INT, endYear VARCHAR(255), runtimeMinutes VARCHAR(255), genres VARCHAR(255")
+               "originalTitle VARCHAR(255), isAdult INT, startYear INT, endYear VARCHAR(255), runtimeMinutes VARCHAR(255), genres VARCHAR(255)")
 ```
 - Then we will need to insert all of the data within
 the table imported from the csv file into the newly
