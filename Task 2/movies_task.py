@@ -6,19 +6,19 @@ movies_csv = pd.read_csv(r'C:\Users\poiro\PycharmProjects\Python_with_SQL\Tasks\
 data_frame = pd.DataFrame(movies_csv, columns=['titleType', 'primaryTitle', 'originalTitle', 'isAdult',
                                                'startYear', 'endYear', 'runtimeMinutes', 'genres'])
 # Can see the table in a python format
-print(movies_csv)
-
 # Connecting to SQL DB
 server = "databases1.spartaglobal.academy"
 database = "Northwind"
-username = "SA"
-password = "Passw0rd2018"
+username = "**"
+password = "***"
 
 connect = pyodbc.connect(
             'DRIVER={ODBC Driver 17 for SQL Server};SERVER=' + server + ';DATABASE=' + database + ';UID=' + username + ';PWD=' + password)
 
 # Cursor is location of your mouse/current path
 cursor = connect.cursor()
+
+
 
 
 # Create a table for the movie data in SQL DB
@@ -46,5 +46,6 @@ exported_movie_data = pd.read_sql_query("""
                           SELECT * FROM matt_movies_table
                           """, connect) # connect is the connection to the database
 
+# We assign a dataframe to our table obtained from the SQL DB and export to csv
 data_frame_2 = pd.DataFrame(exported_movie_data)
-data_frame_2.to_csv(r'C:\Users\poiro\PycharmProjects\Python_with_SQL\Tasks\sql_to_csv_movies.csv'))
+data_frame_2.to_csv(r'C:\Users\poiro\PycharmProjects\Python_with_SQL\Tasks\sql_to_csv_movies.csv')

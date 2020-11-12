@@ -4,8 +4,8 @@ class SQL_Manager:
     def __init__(self):
         self.server = "databases1.spartaglobal.academy"
         self.database = "Northwind"
-        self.username = "SA"
-        self.password = "Passw0rd2018"
+        self.username = "**"
+        self.password = "****"
 
     # Connect method so we can connect to the database
     def connect(self):
