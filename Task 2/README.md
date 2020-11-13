@@ -49,16 +49,16 @@ import pandas as pd
 - Then we can do many things, I created a Movies class which has 
 different functionalities
 - When the class is initialised, the connection to SQL is established
-and menu pops up for the user to read from
+and menu pops up for the user to read from and extracting
+data from a text file csv to python.
 ```python
-
 # Creating a class with different functionalities for extracting and importing data in csv, python and SQL
 class Movies:
     def __init__(self):
         # Connecting to SQL DB
         self.server = "databases1.spartaglobal.academy"
         self.database = "Northwind"
-        self.username = "*****"
+        self.username = "**"
         self.password = "*****"
 
         self.connect = pyodbc.connect(
@@ -67,6 +67,12 @@ class Movies:
         # Cursor is location of your mouse/current path
         self.cursor = self.connect.cursor()
 
+        # Saving the movie file into a variable in a readme fashion
+        self.movies_csv = pd.read_csv(r'C:\Users\poiro\PycharmProjects\Python_with_SQL\Task 2\imdbtitles.csv')
+        # Can see the table in a python format
+        self.data_frame = pd.DataFrame(self.movies_csv,
+                                       columns=['titleType', 'primaryTitle', 'originalTitle', 'isAdult',
+                                                'startYear', 'endYear', 'runtimeMinutes', 'genres'])
         self.menu()
 ```
 - Menu provides user with different options they can choose from
@@ -76,52 +82,43 @@ and prompts them to select an action
     def menu(self):
         print("""
               DISPLAY
-              1. Extract data from csv file to python
-              2. Create table in SQL DB
-              3. Import data into created SQL Table
-              4. Search for specific movie in SQL Table
-              5. Insert movie into SQL Table
-              6. Move Data from SQL to text file i.e. csv file
+              1. Create table in SQL DB
+              2. Import data into created SQL Table
+              3. Search for specific movie in SQL Table
+              4. Insert movie into SQL Table
+              5. Move Data from SQL to text file i.e. csv file
               -> Please choose an option (1,2,3,4,5,6 or exit to stop)
               """)
         while True:
             # User must choose an option seen in the Display
             user_choice = input("What would you like to do?\n -> ").lower()
             if user_choice == '1':
-                self.csv_to_python()
-            elif user_choice == '2':
                 self.create_table_sql()
-            elif user_choice == '3':
+                print("You have successfully created a table in SQL!")
+            elif user_choice == '2':
                 self.import_from_csv()
-            elif user_choice == '4':
+                print("You have successfully inserted data into your table!")
+            elif user_choice == '3':
                 self.search_movie()
-            elif user_choice == '5':
+                print("I hope you found the movie you were looking for!")
+            elif user_choice == '4':
                 self.insert_movie()
-            elif user_choice == '6':
+                print("You have successfully inserted movie details into the table!")
+            elif user_choice == '5':
                 self.sql_to_csv()
+                print("You have successfully transferred your data from SQL to a csv file!")
             elif user_choice == 'exit':
                 break
 ```
-- The first method they can choose from (and should) is extracting
-data from a text file csv to python
-```python
-
-    def csv_to_python(self):
-        # Saving the movie file into a variable in a readme fashion
-        self.movies_csv = pd.read_csv(r'C:\Users\poiro\PycharmProjects\Python_with_SQL\Task 2\imdbtitles.csv')
-        # Can see the table in a python format
-        self.data_frame = pd.DataFrame(self.movies_csv, columns=['titleType', 'primaryTitle', 'originalTitle', 'isAdult',
-                                                       'startYear', 'endYear', 'runtimeMinutes', 'genres'])
-```
 - Once the data is stored within a variable in python, we can create a table
-in SQL DB to store the data, i.e. option 2
+in SQL DB to store the data, i.e. option 1
 ```python
     def create_table_sql(self):
         # Method creates matt_movies_table with all the columns provided in the csv file
         self.cursor.execute("CREATE TABLE matt_movies_table ((titleType VARCHAR(255), primaryTitle VARCHAR(255), "
                "originalTitle VARCHAR(255), isAdult INT, startYear INT, endYear VARCHAR(255), runtimeMinutes VARCHAR(255), genres VARCHAR(255)")
 ```
-- Option 3 inserts all of the extracted data obtained from the text file into
+- Option 2 inserts all of the extracted data obtained from the text file into
 the SQL table named matt_movies_table
 ```python
     def import_from_csv(self):

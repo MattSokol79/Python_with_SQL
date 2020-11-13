@@ -8,8 +8,8 @@ class Movies:
         # Connecting to SQL DB
         self.server = "databases1.spartaglobal.academy"
         self.database = "Northwind"
-        self.username = "SA"
-        self.password = "Passw0rd2018"
+        self.username = "**"
+        self.password = "***"
 
         self.connect = pyodbc.connect(
             'DRIVER={ODBC Driver 17 for SQL Server};SERVER=' + self.server + ';DATABASE=' + self.database + ';UID=' + self.username + ';PWD=' + self.password)
@@ -85,7 +85,7 @@ class Movies:
 
                 # SQL query to insert data based on inputs
                 self.cursor.execute(f"""
-                                    INSERT INTO dbo.matt_movies_table (titleType, primaryTitle, originalTitle, isAdult, startYear, endYear, runtimeMinutes, genres)
+                                    INSERT INTO matt_movies_table (titleType, primaryTitle, originalTitle, isAdult, startYear, endYear, runtimeMinutes, genres)
                                     VALUES ('{titleType}', '{primaryTitle}', '{originalTitle}', '{isAdult}', '{startYear}', '{endYear}', '{runtimeMinutes}', '{genres}'
                                     """)
 
