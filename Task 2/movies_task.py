@@ -8,8 +8,8 @@ class Movies:
         # Connecting to SQL DB
         self.server = "databases1.spartaglobal.academy"
         self.database = "Northwind"
-        self.username = "*****"
-        self.password = "*****"
+        self.username = "SA"
+        self.password = "Passw0rd2018"
 
         self.connect = pyodbc.connect(
             'DRIVER={ODBC Driver 17 for SQL Server};SERVER=' + self.server + ';DATABASE=' + self.database + ';UID=' + self.username + ';PWD=' + self.password)
@@ -17,14 +17,14 @@ class Movies:
         # Cursor is location of your mouse/current path
         self.cursor = self.connect.cursor()
 
-        self.menu()
-
-    def csv_to_python(self):
         # Saving the movie file into a variable in a readme fashion
         self.movies_csv = pd.read_csv(r'C:\Users\poiro\PycharmProjects\Python_with_SQL\Task 2\imdbtitles.csv')
         # Can see the table in a python format
-        self.data_frame = pd.DataFrame(self.movies_csv, columns=['titleType', 'primaryTitle', 'originalTitle', 'isAdult',
-                                                       'startYear', 'endYear', 'runtimeMinutes', 'genres'])
+        self.data_frame = pd.DataFrame(self.movies_csv,
+                                       columns=['titleType', 'primaryTitle', 'originalTitle', 'isAdult',
+                                                'startYear', 'endYear', 'runtimeMinutes', 'genres'])
+        self.menu()
+
 
     def sql_to_csv(self):
         # EXPORTING/Moving data from DB to text files etc
@@ -38,8 +38,8 @@ class Movies:
 
     def create_table_sql(self):
         # Method creates matt_movies_table with all the columns provided in the csv file
-        self.cursor.execute("CREATE TABLE matt_movies_table ((titleType VARCHAR(255), primaryTitle VARCHAR(255), "
-               "originalTitle VARCHAR(255), isAdult INT, startYear INT, endYear VARCHAR(255), runtimeMinutes VARCHAR(255), genres VARCHAR(255)")
+        self.cursor.execute("CREATE TABLE matt_movies_table (titleType VARCHAR(255), primaryTitle VARCHAR(255), "
+               "originalTitle VARCHAR(255), isAdult INT, startYear INT, endYear VARCHAR(255), runtimeMinutes VARCHAR(255), genres VARCHAR(255))")
 
     def import_from_csv(self):
         # Inserts data into the SQL table with the use of pandas i.e. csv -> Python -> SQL Table
@@ -85,7 +85,7 @@ class Movies:
 
                 # SQL query to insert data based on inputs
                 self.cursor.execute(f"""
-                                    INSERT INTO matt_movies_table (titleType, primaryTitle, originalTitle, isAdult, startYear, endYear, runtimeMinutes, genres)
+                                    INSERT INTO dbo.matt_movies_table (titleType, primaryTitle, originalTitle, isAdult, startYear, endYear, runtimeMinutes, genres)
                                     VALUES ('{titleType}', '{primaryTitle}', '{originalTitle}', '{isAdult}', '{startYear}', '{endYear}', '{runtimeMinutes}', '{genres}'
                                     """)
 
@@ -97,29 +97,31 @@ class Movies:
     def menu(self):
         print("""
               DISPLAY
-              1. Extract data from csv file to python
-              2. Create table in SQL DB
-              3. Import data into created SQL Table
-              4. Search for specific movie in SQL Table
-              5. Insert movie into SQL Table
-              6. Move Data from SQL to text file i.e. csv file
+              1. Create table in SQL DB
+              2. Import data into created SQL Table
+              3. Search for specific movie in SQL Table
+              4. Insert movie into SQL Table
+              5. Move Data from SQL to text file i.e. csv file
               -> Please choose an option (1,2,3,4,5,6 or exit to stop)
               """)
         while True:
             # User must choose an option seen in the Display
             user_choice = input("What would you like to do?\n -> ").lower()
             if user_choice == '1':
-                self.csv_to_python()
-            elif user_choice == '2':
                 self.create_table_sql()
-            elif user_choice == '3':
+                print("You have successfully created a table in SQL!")
+            elif user_choice == '2':
                 self.import_from_csv()
-            elif user_choice == '4':
+                print("You have successfully inserted data into your table!")
+            elif user_choice == '3':
                 self.search_movie()
-            elif user_choice == '5':
+                print("I hope you found the movie you were looking for!")
+            elif user_choice == '4':
                 self.insert_movie()
-            elif user_choice == '6':
+                print("You have successfully inserted movie details into the table!")
+            elif user_choice == '5':
                 self.sql_to_csv()
+                print("You have successfully transferred your data from SQL to a csv file!")
             elif user_choice == 'exit':
                 break
 
